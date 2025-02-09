@@ -2,6 +2,8 @@
 Autorok is zrok auto configuration tool written in C. 
 - Only support specific version of zrok cli.
 - Currently only support window.
+# Download
+- Github release: https://github.com/GoodDay360/autorok/releases/latest
 # Preview
 ![autorok](https://github.com/user-attachments/assets/5102db5d-d23b-498f-9129-42f2bbbe8807)
 # Build
