@@ -8,4 +8,5 @@ Autorok is zrok auto configuration tool written in C.
 ```
 build.bat
 ```
-- Result is in `output` folder.
+- The result is in the `output` folder.
+- Required to rename `zrok cli` to `runtime` and place it in the same directory as autorok.
