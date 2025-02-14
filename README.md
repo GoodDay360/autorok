@@ -1,5 +1,5 @@
 # What is autorok?
-Autorok is zrok auto configuration tool written in C. 
+Autorok is [zrok](https://zrok.io/) auto configuration tool written in C. 
 - Only support specific version of zrok cli.
 - Currently only support window.
 # Download
