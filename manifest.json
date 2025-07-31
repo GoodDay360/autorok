@@ -1,0 +1,9 @@
+{
+    "Windows": {
+        "x86_64": {
+            "url": "https://github.com/openziti/zrok/releases/download/v1.0.8/zrok_1.0.8_windows_amd64.tar.gz",
+            "filename": "zrok.exe",
+            "version": "1.0.8"
+        }
+    }
+}
