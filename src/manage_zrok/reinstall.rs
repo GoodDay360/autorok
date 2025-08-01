@@ -13,7 +13,10 @@ use crate::manage_zrok::{
 
 
 pub async fn new() -> bool{
+    println!("{}", "=== Reinstall zrok ===".purple());
+    
     let zrok_dir = Path::new(&get_dirs::appdata()).join("zrok");
+    println!("{}{}", "=> 📦 Removing zrok... | ".yellow(), &zrok_dir.to_str().unwrap());
     match fs::remove_dir_all(&zrok_dir) {
         Ok(_) => println!("Deleted: {}", zrok_dir.display()),
         Err(e) if e.kind() == ErrorKind::NotFound => {
@@ -26,6 +29,7 @@ pub async fn new() -> bool{
     }
 
     let install_manifest_path = Path::new(&get_dirs::appdata()).join("install_manifest.json");
+    println!("{}{}", "=> 📦 Removing install manifest... | ".yellow(), &install_manifest_path.to_str().unwrap());
     match fs::remove_file(&install_manifest_path) {
         Ok(_) => println!("Deleted: {}", install_manifest_path.display()),
         Err(e) if e.kind() == ErrorKind::NotFound => {
@@ -38,6 +42,7 @@ pub async fn new() -> bool{
     }
 
     clearscreen::clear().unwrap();
+    println!("{}", "=== Reinstall zrok ===".purple());
     let check_install_result:bool;
     match check_install::new().await {
         Ok(result) => {
