@@ -104,7 +104,7 @@ pub async fn new() -> Result<ReturnResult, Box<dyn std::error::Error>> {
     // Extract Zrok
     
     
-    println!("{}{}", "=> 📦 Extracting zrok... | ".yellow(), &output_file.to_str().unwrap());
+    println!("{}{}", "=> 📦 Extracting zrok... | ".yellow(), &output_file.to_str().unwrap().yellow());
     let zrok_dir = Path::new(&appdata_dir).join("zrok");
     match fs::create_dir_all(&zrok_dir) {
         Ok(_) => (),
