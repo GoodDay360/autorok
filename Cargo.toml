@@ -1,8 +1,22 @@
 [package]
 name = "autorok"
+authors = ["GoodDay360"]
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 serde_json = "1.0.141"
 whoami = "1.6.0"
+tokio = { version = "1", features = ["full"] }
+serde = {version = "1.0.219", features = ["derive"]}
+autorok_utils = { path = "autorok_utils" }
+colored = "3.0.0"
+menu_rs = "0.3.1"
+dialoguer = "0.11.0"
+clearscreen = "4.0.2"
+tabled = "0.20.0"
+
+
+
+
+
