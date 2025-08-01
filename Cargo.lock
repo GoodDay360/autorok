@@ -37,7 +37,6 @@ dependencies = [
  "clearscreen",
  "colored",
  "dialoguer",
- "menu_rs",
  "serde",
  "serde_json",
  "tabled",
@@ -790,15 +789,6 @@ name = "memchr"
 version = "2.7.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32a282da65faaf38286cf3be983213fcf1d2e2a58700e808f83f4ea9a4804bc0"
-
-[[package]]
-name = "menu_rs"
-version = "0.3.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d6ea444314ba766b551fa461f32000e26b262c74f80c2819a535cc228bb7cfe1"
-dependencies = [
- "console 0.15.11",
-]
 
 [[package]]
 name = "mime"
