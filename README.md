@@ -8,5 +8,3 @@ Autorok is [zrok](https://zrok.io/) auto configuration for Minecraft server writ
 ```
 cargo build --release
 ```
-
-[![Download](https://img.shields.io/badge/Download-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/GoodDay360/HyperionBox/releases/latest)
