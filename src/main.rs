@@ -9,8 +9,11 @@ use manage_zrok::{
     check_install, enviroment, display_all_service, share_service, delete_service, create_service, join_service, reinstall
 };
 
+
 #[tokio::main]
 async fn main() {
+    
+
     let check_install_result:bool;
     println!("{}","✨ Checking if zrok is installed...".yellow());
     match check_install::new().await {

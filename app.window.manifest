@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v3" manifestVersion="1.0"> 
+  <assemblyIdentity 
+      version="1.0.0.0"
+      processorArchitecture="X86"
+      name="MyApplication"
+      type="win32"/> 
+
+  <description>Description of your application</description> 
+
+  <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
+    <security>
+      <requestedPrivileges>
+        <requestedExecutionLevel 
+             level="requireAdministrator" 
+             uiAccess="false"/>
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+
+  
+  <asmv3:application xmlns:asmv3="urn:schemas-microsoft-com:asm.v3">
+    <asmv3:windowsSettings>
+      <activeCodePage xmlns="http://schemas.microsoft.com/SMI/2019/WindowsSettings">UTF-8</activeCodePage>
+    </asmv3:windowsSettings>
+  </asmv3:application>
+</assembly>
