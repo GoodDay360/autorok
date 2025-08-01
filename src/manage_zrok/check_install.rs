@@ -59,7 +59,7 @@ pub async fn new() -> Result<ReturnResult, Box<dyn std::error::Error>> {
     
 
     let manifest: Manifest;
-    if IS_DEV_MODE || env!("DEV_USE_LOCAL_MANIFEST") == "1" {
+    if IS_DEV_MODE && env!("DEV_USE_LOCAL_MANIFEST") == "1" {
         let json_str = fs::read_to_string(env!("DEV_LOCAL_MANIFEST_PATH")).expect("Failed to read file");
         manifest = serde_json::from_str(&json_str).expect("Failed to parse JSON");
         
