@@ -12,8 +12,6 @@ use manage_zrok::{
 
 #[tokio::main]
 async fn main() {
-    
-
     let check_install_result:bool;
     println!("{}","✨ Checking if zrok is installed...".yellow());
     match check_install::new().await {

@@ -2,7 +2,20 @@
     "Windows": {
         "x86_64": {
             "url": "https://github.com/openziti/zrok/releases/download/v1.0.8/zrok_1.0.8_windows_amd64.tar.gz",
-            "filename": "zrok.exe",
+            "version": "1.0.8"
+        }
+    },
+    "Linux": {
+        "x86_64": {
+            "url": "https://github.com/openziti/zrok/releases/download/v1.0.8/zrok_1.0.8_linux_amd64.tar.gz",
+            "version": "1.0.8"
+        },
+        "aarch64": {
+            "url": "https://github.com/openziti/zrok/releases/download/v1.0.8/zrok_1.0.8_linux_arm64.tar.gz",
+            "version": "1.0.8"
+        },
+        "arm": {
+            "url": "https://github.com/openziti/zrok/releases/download/v1.0.8/zrok_1.0.8_linux_armv7.tar.gz",
             "version": "1.0.8"
         }
     }
