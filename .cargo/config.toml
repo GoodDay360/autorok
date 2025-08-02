@@ -1,5 +1,5 @@
 [env]
 DEV_USE_LOCAL_MANIFEST = "1"
-DEV_LOCAL_MANIFEST_PATH = "D:\\Codes\\autorok\\manifest.json"
+DEV_LOCAL_MANIFEST_PATH = "manifest.json"
 MANIFEST_URL = "https://raw.githubusercontent.com/GoodDay360/autorok/refs/heads/main/manifest.json"
 RUST_UTF8_OUTPUT = "1"
