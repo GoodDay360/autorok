@@ -11,6 +11,7 @@ pub struct ShareInfo {
     pub backend_mode: String,
     pub backend_proxy_endpoint: String,
     pub share_mode: String,
+    pub env_id: String,
     pub share_token: String,
 
 }
@@ -32,13 +33,14 @@ pub fn new() -> Vec<ShareInfo> {
         let reader = BufReader::new(stdout);
         for line in reader.lines() {
             let unwarped_line = line.unwrap();
-            if unwarped_line.trim().is_empty() {
-            }else{
-                request_result = unwarped_line;
+            if !unwarped_line.trim().is_empty() {
+                request_result.push_str(&unwarped_line);
             }
             
         }
     }
+
+    println!("{}", request_result);
 
     if let Some(stderr) = &mut child.stderr {
         let reader = BufReader::new(stderr);
@@ -54,18 +56,25 @@ pub fn new() -> Vec<ShareInfo> {
 
     match serde_json::from_str::<Value>(&request_result) {
         Ok(result) => {
+            let current_env = result.get("environments").unwrap().as_array().unwrap().last().and_then(|v| v.get("environment")).unwrap().as_object().unwrap();
+            println!("{}{}", "Current Host: ".green(), current_env.get("host").unwrap().as_str().unwrap());
+
+            
+            let mut index: usize = 0;
             if let Some(envs) = result.get("environments").and_then(|v| v.as_array()) {
-                if let Some(first_env) = envs.get(0) {
+                for env in envs {
                     
-                    if let Some(shares) = first_env.get("shares").and_then(|s| s.as_array()) {
-                        for (index, share) in shares.iter().enumerate() {
+                    if let Some(shares) = env.get("shares").and_then(|s| s.as_array()) {
+                        for share in shares {
                             share_info.push(ShareInfo {
-                                id: index, // index is of type usize
+                                id: index, 
                                 backend_mode: share.get("backendMode").unwrap_or(&Value::Null).as_str().unwrap_or("").to_string(),
                                 backend_proxy_endpoint: share.get("backendProxyEndpoint").unwrap_or(&Value::Null).as_str().unwrap_or("").to_string(),
                                 share_mode: share.get("shareMode").unwrap_or(&Value::Null).as_str().unwrap_or("").to_string(),
+                                env_id: share.get("envZId").unwrap_or(&Value::Null).as_str().unwrap_or("").to_string(),
                                 share_token: share.get("shareToken").unwrap_or(&Value::Null).as_str().unwrap_or("").to_string(),
                             });
+                            index += 1;
                         }
                     }
                 }

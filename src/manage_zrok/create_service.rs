@@ -24,9 +24,9 @@ pub fn new() {
     
 
     // Request input for port
-    let mut port: String = "25565".to_string();
+    let mut port: String = "8080".to_string();
     let mut input = String::new();
-    print!("{}", "[>] Enter port [Default: 25565]: ".cyan().to_string());
+    print!("{}", "[>] Enter port [Default: 8080]: ".cyan().to_string());
     io::stdout().flush().unwrap(); // Show the prompt immediately
     input.clear();
     io::stdin().read_line(&mut input).unwrap();
@@ -40,8 +40,8 @@ pub fn new() {
     let mut backend_mode: String = "tcpTunnel".to_string();
     println!("{}", "[>] Select Backend Mode: ".cyan().to_string());
     let items = vec![
-        "tcpTunnel -> Require for Minecraft Java Edition or Bedrock Edition", 
-        "udpTunnel -> Require for Minecraft Bedrock Edition", 
+        "tcpTunnel", 
+        "udpTunnel", 
     ];
     let theme = ColorfulTheme::default();
     let selected = Select::with_theme(&theme)
