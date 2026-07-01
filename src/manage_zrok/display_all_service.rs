@@ -40,7 +40,6 @@ pub fn new() -> Vec<ShareInfo> {
         }
     }
 
-    println!("{}", request_result);
 
     if let Some(stderr) = &mut child.stderr {
         let reader = BufReader::new(stderr);

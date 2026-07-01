@@ -84,11 +84,10 @@ pub fn new() {
     if let Some(stderr) = &mut child.stderr {
         let reader = BufReader::new(stderr);
         for line in reader.lines() {
-            println!("{}{}", "=> ", line.unwrap().red());
-            println!("{}", "=> Make your share are created from same environment machine.".yellow());
-            println!("{}", "=> Use zrok console with admin account: https://api.zrok.io/ to delete share from other environment machine.".yellow());
-
+            println!("{}{}", "=> ", line.unwrap());
+            
         }
+
     }
 
     let _ = child.wait(); 

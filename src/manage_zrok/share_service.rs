@@ -17,6 +17,9 @@ pub fn new() {
         io::stdin().read_line(&mut dummy).unwrap();
         return;
     }
+
+    println!("{}", "[Note] Sharing only allow for same environment machine that created it only.".yellow());
+
     let mut input = String::new();
     let mut selected_id: u32;
 
@@ -82,6 +85,7 @@ pub fn new() {
         for line in reader.lines() {
             println!("{}{}", "=> ", line.unwrap());
         }
+
     }
 
     let _ = child.wait(); 
