@@ -1,7 +1,7 @@
 [package]
 name = "autorok"
 authors = ["GoodDay360"]
-version = "0.1.0"
+version = "1.5.0"
 edition = "2024"
 
 [dependencies]
