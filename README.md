@@ -39,10 +39,12 @@ After that enable your token in autorok.
 
 ### 2. Host creates a service
 The host defines what they want to expose, like a website or a game server, and creates a service for it through the CLI.
+
 <img width="428" height="259" alt="image" src="https://github.com/user-attachments/assets/1de294d5-61f8-4587-8e59-0231585a5056" />
 
 ### 3. Host shares the service
 Once created, the host shares the service.
+
 <img width="769" height="257" alt="image" src="https://github.com/user-attachments/assets/c677142a-8aed-4437-a9d4-75f03c7ccae7" />
 
 ### 4. Everyone else joins
