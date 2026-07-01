@@ -2,7 +2,7 @@ name: Build & Draft Release
 
 on:
   push:
-    branches: [main]
+    branches: [build]
 
 permissions:
   contents: write
