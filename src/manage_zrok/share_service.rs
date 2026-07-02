@@ -62,7 +62,7 @@ pub fn new() -> anyhow::Result<()> {
     println!("{}", "⚙ Requesting zrok to share service...".yellow());
 
     
-    let command = format!("{} share reserved {}", zrok_path, share_token);
+    let command = format!("\"{}\" share reserved {}", zrok_path, share_token);
 
     launch_new_terminal::new(&command)
         .map_err(|e| anyhow::anyhow!(e.to_string()))?;

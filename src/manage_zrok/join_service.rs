@@ -92,7 +92,7 @@ pub fn new() -> anyhow::Result<()> {
 
     
     let command = format!(
-        "{} access {} {} --bind {}:{}",
+        "\"{}\" access {} {} --bind {}:{}",
         zrok_path, share_mode, share_token, ip_addr, port
     );
 
