@@ -6,7 +6,7 @@ use std::fs;
 use std::io::ErrorKind;
 use clearscreen;
 
-use autorok_utils::get_dirs;
+use crate::utils::get_dirs;
 use crate::manage_zrok::{
     check_install
 };

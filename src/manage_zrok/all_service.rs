@@ -1,17 +1,17 @@
-use autorok_utils::get_executor;
+use crate::utils::{get_executor, short_hash};
 use std::io::{self, Write, BufReader, BufRead};
 use colored::Colorize;
 use std::process::{Command, Stdio};
 use serde_json::Value;
 use tabled::{Tabled, Table, settings::Style};
 
-#[derive(Tabled)]
+#[derive(Tabled, Clone)]
 pub struct ShareInfo {
     pub id: usize,
     pub backend_mode: String,
     pub backend_proxy_endpoint: String,
     pub share_mode: String,
-    pub env_id: String,
+    pub creator_id: String,
     pub share_token: String,
 
 }
@@ -52,17 +52,15 @@ pub fn new() -> Vec<ShareInfo> {
     io::stdout().flush().unwrap();
 
     let mut share_info: Vec<ShareInfo> = Vec::new();
+    
 
     match serde_json::from_str::<Value>(&request_result) {
         Ok(result) => {
-            let current_env = result.get("environments").unwrap().as_array().unwrap().last().and_then(|v| v.get("environment")).unwrap().as_object().unwrap();
-            println!("{}{}", "Current Host: ".green(), current_env.get("host").unwrap().as_str().unwrap());
-
             
             let mut index: usize = 0;
             if let Some(envs) = result.get("environments").and_then(|v| v.as_array()) {
                 for env in envs {
-                    
+                    let creator_id = short_hash::new(env.get("environment").and_then(|v| v.get("host")).unwrap_or(&Value::Null).as_str().unwrap_or(""), 10);
                     if let Some(shares) = env.get("shares").and_then(|s| s.as_array()) {
                         for share in shares {
                             share_info.push(ShareInfo {
@@ -70,7 +68,7 @@ pub fn new() -> Vec<ShareInfo> {
                                 backend_mode: share.get("backendMode").unwrap_or(&Value::Null).as_str().unwrap_or("").to_string(),
                                 backend_proxy_endpoint: share.get("backendProxyEndpoint").unwrap_or(&Value::Null).as_str().unwrap_or("").to_string(),
                                 share_mode: share.get("shareMode").unwrap_or(&Value::Null).as_str().unwrap_or("").to_string(),
-                                env_id: share.get("envZId").unwrap_or(&Value::Null).as_str().unwrap_or("").to_string(),
+                                creator_id: creator_id.clone(),
                                 share_token: share.get("shareToken").unwrap_or(&Value::Null).as_str().unwrap_or("").to_string(),
                             });
                             index += 1;

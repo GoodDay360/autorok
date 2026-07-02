@@ -1,4 +1,4 @@
-use autorok_utils::get_executor;
+use crate::utils::get_executor;
 use std::io::{self, Write, BufReader, BufRead};
 use colored::Colorize;
 use std::process::{Command, Stdio};

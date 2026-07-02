@@ -4,14 +4,18 @@ use dialoguer::{Select, theme::ColorfulTheme};
 use clearscreen;
 use std::io::{self};
 
-mod manage_zrok;
+pub mod manage_zrok;
+pub mod utils;
+
 use manage_zrok::{
-    check_install, enviroment, display_all_service, share_service, delete_service, create_service, join_service, reinstall
+    check_install, enviroment, all_service, share_service, delete_service, create_service, join_service, reinstall
 };
+
+use crate::manage_zrok::current_share_join_service;
 
 
 #[tokio::main]
-async fn main() {
+async fn main() -> anyhow::Result<()> {
     let check_install_result:bool;
     println!("{}","✨ Checking if zrok is installed...".yellow());
     match check_install::new().await {
@@ -34,7 +38,7 @@ async fn main() {
         let theme = ColorfulTheme::default();
 
         loop {
-            clearscreen::clear().unwrap();
+            clearscreen::clear()?;
             println!("{}", "=== [Autorok] ===".purple());
 
             let items = vec![
@@ -51,67 +55,64 @@ async fn main() {
             let selected = Select::with_theme(&theme)
                 .items(&items)
                 .default(0)
-                .interact()
-                .unwrap();
+                .interact()?;
 
             match selected {
                 0 => {
-                    clearscreen::clear().unwrap();
+                    clearscreen::clear()?;
                     enviroment::enable()
                 },
                 1 => {
-                    clearscreen::clear().unwrap();
+                    clearscreen::clear()?;
                     enviroment::disable()
                 },
+
                 2 => {
                     
-                    clearscreen::clear().unwrap();
+                    clearscreen::clear()?;
                     println!("{}", "=== Display All Service ===".purple());
-                    display_all_service::new();
+                    all_service::new();
                     println!("{}", "Press any key to continue...".yellow());
-                    let mut dummy = String::new();
-                    io::stdin().read_line(&mut dummy).unwrap();
+                    io::stdin().read_line(&mut String::new())?;
                 }
+                
                 3 => {
-                    clearscreen::clear().unwrap();
-                    share_service::new();
+                    clearscreen::clear()?;
+                    share_service::new()?;
                 }
                 4 => {
-                    clearscreen::clear().unwrap();
-                    join_service::new();
+                    clearscreen::clear()?;
+                    join_service::new()?;
                 }
                 5 => {
-                    clearscreen::clear().unwrap();
+                    clearscreen::clear()?;
                     create_service::new();
                 }
                 6 => {
-                    clearscreen::clear().unwrap();
+                    clearscreen::clear()?;
                     delete_service::new();
                 }
                 7 => {
-                    clearscreen::clear().unwrap();
+                    clearscreen::clear()?;
                     let reinstall_result = reinstall::new().await;
                     if reinstall_result == false {
                         println!("{}", "❌ Reinstall zrok failed".red());
                         println!("{}","👋 Exited autorok.".yellow());
                         println!("{}", "Press any key to continue...".yellow());
-                        let mut dummy = String::new();
-                        io::stdin().read_line(&mut dummy).unwrap();
+                        io::stdin().read_line(&mut String::new())?;
                         
                         break;
                     }else{
                         println!("{}", "Press any key to continue...".yellow());
-                        let mut dummy = String::new();
-                        io::stdin().read_line(&mut dummy).unwrap();
+                        io::stdin().read_line(&mut String::new())?;
                     }
                     
                 }
                 8 => {
-                    clearscreen::clear().unwrap();
+                    clearscreen::clear()?;
                     println!("{}","👋 Exited autorok.".yellow());
                     println!("{}", "Press any key to continue...".white());
-                    let mut dummy = String::new();
-                    io::stdin().read_line(&mut dummy).unwrap();
+                    io::stdin().read_line(&mut String::new())?;
                     break;
                 }
                 _ => {
@@ -122,4 +123,6 @@ async fn main() {
         }
         
     }
+
+    Ok(())
 }

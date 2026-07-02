@@ -1,8 +1,8 @@
 use std::fs::File;
-use std::io::{BufReader, Read, Write};
+use std::io::Write;
 use std::path::Path;
 use indicatif::{ProgressBar, ProgressStyle};
-use reqwest::blocking::Client;
+use reqwest::Client;
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -11,10 +11,10 @@ pub struct ReturnDownloadResult {
     pub message: String,
 }
 
-pub fn new(url: &str, output_file: &str) -> ReturnDownloadResult {
+pub async fn new(url: &str, output_file: &str) -> ReturnDownloadResult {
     let client = Client::new();
 
-    let response = match client.get(url).send() {
+    let response = match client.get(url).send().await {
         Ok(resp) => resp,
         Err(e) => {
             return ReturnDownloadResult {
@@ -54,14 +54,13 @@ pub fn new(url: &str, output_file: &str) -> ReturnDownloadResult {
         }
     };
 
-    let mut source = BufReader::new(response);
-    let mut buffer = [0u8; 8192];
-    let mut downloaded = 0;
+    let mut response = response;
+    let mut downloaded: u64 = 0;
 
     loop {
-        let bytes_read = match source.read(&mut buffer) {
-            Ok(0) => break,
-            Ok(n) => n,
+        let chunk = match response.chunk().await {
+            Ok(Some(bytes)) => bytes,
+            Ok(None) => break,
             Err(e) => {
                 return ReturnDownloadResult {
                     status: false,
@@ -70,14 +69,14 @@ pub fn new(url: &str, output_file: &str) -> ReturnDownloadResult {
             }
         };
 
-        if let Err(e) = file.write_all(&buffer[..bytes_read]) {
+        if let Err(e) = file.write_all(&chunk) {
             return ReturnDownloadResult {
                 status: false,
                 message: format!("Write error: {}", e),
             };
         }
 
-        downloaded += bytes_read as u64;
+        downloaded += chunk.len() as u64;
         pb.set_position(downloaded);
     }
 

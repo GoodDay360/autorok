@@ -10,7 +10,7 @@ use std::io::Write;
 
 
 // Custom crate
-use autorok_utils::{
+use crate::utils::{
     request, download, extract, get_dirs
 };
 
@@ -89,10 +89,7 @@ pub async fn new() -> Result<ReturnResult, Box<dyn std::error::Error>> {
     // Download Zrok
     println!("{}{}", "=> 📦 Downloading zrok... | ".yellow(), url.yellow());
     let clone_output_file = output_file.to_path_buf();
-    let result = tokio::task::spawn_blocking(move || {
-        download::new(&url, clone_output_file.to_str().unwrap())
-    }).await
-    .expect("Blocking task panicked");
+    let result = download::new(&url, clone_output_file.to_str().unwrap()).await;
 
     if result.status  {
         println!("{}{}", "=> ✔ Downloaded zrok successfully ➡  ".green(), output_file.to_str().unwrap().green());

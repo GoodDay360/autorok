@@ -1,4 +1,4 @@
-use autorok_utils::get_executor;
+use crate::utils::get_executor;
 use std::io::{self, Write, BufReader, BufRead};
 use colored::Colorize;
 use std::process::{Command, Stdio};
@@ -37,7 +37,7 @@ pub fn new() {
 
 
     // Select Backend Mode
-    let mut backend_mode: String = "tcpTunnel".to_string();
+    let backend_mode: String;
     println!("{}", "[>] Select Backend Mode: ".cyan().to_string());
     let items = vec![
         "tcpTunnel", 
@@ -50,19 +50,26 @@ pub fn new() {
         .interact()
         .unwrap();
 
-    match selected {
-        0 => {
-            backend_mode = "tcpTunnel".to_string();
-        }
-        1 => {
-            backend_mode = "udpTunnel".to_string();
-        }
-        _ => {
-            println!("{}","Invalid option!".yellow());
-        }
-    }
-
+    backend_mode = items[selected].to_string();
     println!("{}{}", "=> Backend Mode: ".yellow(), backend_mode.yellow());
+
+
+    // Select Backend Mode
+    let share_mode: String;
+    println!("{}", "[>] Select Backend Mode: ".cyan().to_string());
+    let items = vec![
+        "private", 
+        "public", 
+    ];
+    let theme = ColorfulTheme::default();
+    let selected = Select::with_theme(&theme)
+        .items(&items)
+        .default(0)
+        .interact()
+        .unwrap();
+
+    share_mode = items[selected].to_string();
+    println!("{}{}", "=> Share Mode: ".yellow(), share_mode.yellow());
 
     // Request input for unique name
     let mut unique_name: String = "".to_string();
@@ -83,7 +90,7 @@ pub fn new() {
 
     let mut child = Command::new(zrok_path)
         .arg("reserve")
-        .arg("private")
+        .arg(share_mode)
         .arg(ip_addr+&":".to_string()+&port)
         .arg("--backend-mode").arg(backend_mode)
         .arg("--unique-name").arg(unique_name)

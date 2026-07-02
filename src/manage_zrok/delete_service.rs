@@ -1,16 +1,16 @@
-use autorok_utils::get_executor;
+use crate::utils::get_executor;
 use std::io::{self, Write, BufReader, BufRead};
 use colored::Colorize;
 use std::process::{Command, Stdio};
 
-use crate::display_all_service;
+use crate::all_service;
 
 
 
 
 pub fn new() {
     println!("{}", "=== Delete Service ===".purple());
-    let share_info = display_all_service::new();
+    let share_info = all_service::new();
     if share_info.len() == 0 {
         println!("{}", "Press any key to continue...".yellow());
         let mut dummy = String::new();
