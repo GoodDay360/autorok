@@ -6,4 +6,3 @@ pub mod delete_service;
 pub mod create_service;
 pub mod join_service;
 pub mod reinstall;
-pub mod current_share_join_service;

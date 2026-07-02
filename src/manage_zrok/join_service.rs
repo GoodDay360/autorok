@@ -1,11 +1,9 @@
-use std::io::{self, Write, BufReader, BufRead};
+use std::io::{self, Write};
 use colored::Colorize;
-use std::process::{Command, Stdio};
 
 use crate::all_service;
 use crate::utils::{get_executor, launch_new_terminal};
 
-use crate::current_share_join_service::CURRENT_JOIN_SERVICE;
 
 pub fn new() -> anyhow::Result<()> {
     println!("{}", "=== Join Service ===".purple());

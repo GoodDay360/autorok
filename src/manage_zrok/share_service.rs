@@ -1,7 +1,6 @@
-use crate::{manage_zrok::current_share_join_service::CURRENT_SHARE_SERVICE, utils::{get_executor, launch_new_terminal}};
-use std::io::{self, Write, BufReader, BufRead};
+use crate::utils::{get_executor, launch_new_terminal};
+use std::io::{self, Write};
 use colored::Colorize;
-use std::process::{Command, Stdio};
 
 use crate::all_service;
 

@@ -11,7 +11,6 @@ use manage_zrok::{
     check_install, enviroment, all_service, share_service, delete_service, create_service, join_service, reinstall
 };
 
-use crate::manage_zrok::current_share_join_service;
 
 
 #[tokio::main]
